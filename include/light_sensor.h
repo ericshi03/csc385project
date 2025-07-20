@@ -1,4 +1,4 @@
 #pragma once
 
-void bh1750_init();
-float bh1750_read();
+void light_init();
+float read_light();

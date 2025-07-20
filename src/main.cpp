@@ -4,15 +4,15 @@
 
 
 void setup() {
-    bh1750_init();
-    
+    light_init();
+
 }
 
 int main() {
     setup();
 
     while (true) {
-        float lux = bh1750_read();
+        float lux = read_light();
         printf("Light sensor (BH1750) lux: %.2f\n", lux);
         ThisThread::sleep_for(500ms);
     }
