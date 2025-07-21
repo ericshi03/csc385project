@@ -16,8 +16,6 @@ float read_humidity() {
     ThisThread::sleep_for(20ms); 
     char data[6];
     i2c.read(SHT31_ADDR, data, 6);
-
-    uint16_t raw_humidity = (data[3] << 8) | data[4];
-    float humidity = 100.0f * raw_humidity / 65535.0f;
+    uint16_t humidity = (data[3] << 8) | data[4];
     return humidity;
 }
