@@ -14,7 +14,7 @@ float read_humidity() {
     i2c.write(SHT31_ADDR, cmd, 2);
 
     ThisThread::sleep_for(20ms); 
-    char data[6];
+    char data[6]; //format is 6 bytes, first 2 for temp, 3rd for temp validation, 4 and 5 for humidity, 6th for humidity validation
     i2c.read(SHT31_ADDR, data, 6);
     uint16_t humidity = (data[3] << 8) | data[4];
     return humidity;

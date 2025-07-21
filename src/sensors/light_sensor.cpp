@@ -12,8 +12,8 @@ void light_init() {
 }
 
 float read_light() {
-    char data[2];
+    char data[2]; // format for BH1750 is 2 bytes for light level
     i2c.read(BH1750_ADDR, data, 2);
-    int raw = (data[0] << 8) | data[1];
-    return raw / 1.2f; 
+    int light = (data[0] << 8) | data[1];
+    return light; 
 }
