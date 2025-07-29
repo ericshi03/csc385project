@@ -1,7 +1,7 @@
 #include "mbed.h"
 
-#include "include/light_sensor.h"
-#include "include/hum_sensor.h"
+#include "../include/light_sensor.h"
+#include "../include/hum_sensor.h"
 
 
 void setup() {
