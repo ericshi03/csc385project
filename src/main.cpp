@@ -7,7 +7,10 @@
 
 void setup() {
     light_init();
+    
+    //empty for now
     humid_init();
+    temp_init();
 }
 
 int main() {
