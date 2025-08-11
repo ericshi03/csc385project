@@ -113,7 +113,7 @@ bool subscribe_to_topic(const char* topic) {
     return true;
 }
       
-void init() {
+void mqtt_init() {
     if (connect_wifi()) {
         printf("WiFi connected successfully\n");
     } else {
@@ -128,7 +128,22 @@ void init() {
         return; 
     }
 
+    if(subscribe_to_topic("sensorhub/temperature")) {
+        printf("Subscribed to temperature topic\n");
+    } else {
+        printf("Failed to subscribe to temperature topic\n");
+    }
 
+    if(subscribe_to_topic("sensorhub/humidity")) {
+        printf("Subscribed to humidity topic\n");
+    } else {
+        printf("Failed to subscribe to humidity topic\n");
+    }
+    if (subscribe_to_topic("sensorhub/light")) {
+        printf("Subscribed to light topic\n");
+    } else {
+        printf("Failed to subscribe to light topic\n");
+    }
 }
 
 void disconnect() {
