@@ -96,6 +96,22 @@ void send_message(char * topic, char * message) {
     }
 
 }
+
+bool subscribe_to_topic(const char* topic) {
+    int rc = client.subscribe(topic, MQTT::QOS1, [](MQTT::MessageData& md) {
+        MQTT::Message &message = md.message;
+        printf("Received message: %.*s on topic: %.*s\n", 
+               (int)message.payloadlen, (char*)message.payload,
+               (int)md.topicName.lenstring.len, md.topicName.lenstring.data);
+    });
+    
+    if (rc != 0) {
+        printf("Failed to subscribe to topic %s: %d\n", topic, rc);
+        return false;
+    }
+    printf("Subscribed to topic: %s\n", topic);
+    return true;
+}
       
 void init() {
     if (connect_wifi()) {
@@ -113,6 +129,17 @@ void init() {
     }
 
 
+}
+
+void disconnect() {
+    if (client.isConnected()) {
+        client.disconnect();
+        socket.close();
+        wifi->disconnect();
+        printf("Disconnected from MQTT broker and WiFi\n");
+    } else {
+        printf("Client is not connected to MQTT broker\n");
+    }
 }
 
 

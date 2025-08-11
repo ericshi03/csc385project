@@ -3,6 +3,7 @@
 #include "../include/light_sensor.h"
 #include "../include/hum_sensor.h"
 #include "../include/temp_sensor.h"
+#include "../include/mqtt_manager.h"
 
 
 void setup() {
