@@ -80,7 +80,7 @@ bool connect_mqtt() {
     return true;
 }
 
-void send_message(char * topic, char * message) {
+void publish_message(char * topic, char * message) {
     MQTT::Message msg;
     msg.qos = MQTT::QOS0;
     msg.retained = false;
@@ -158,6 +158,8 @@ void disconnect() {
 }
 
 
-
+void mqtt_yield(int timeout_ms) {
+    client.yield(timeout_ms);
+}
 
 

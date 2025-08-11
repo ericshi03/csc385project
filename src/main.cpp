@@ -6,6 +6,7 @@
 #include "../include/mqtt_manager.h"
 
 
+
 void setup() {
     light_init();
     
@@ -23,17 +24,22 @@ int main() {
     while (true) {
         if (sensor_hub) {
             float humidity = read_humidity();
-            printf("Humidity sensor (SHT31) humidity: %.2f%%\n", humidity);
+            char buf[16];
+            snprintf(buf, sizeof(buf), "%.2f", humidity);
+            publish_message("sensorhub/humidity", buf);
 
             float temperature = read_temperature(); 
-            printf("Temperature sensor (SHT31) temperature: %.2f°C\n", temperature); 
+            char buf[16];
+            snprintf(buf, sizeof(buf), "%.2f", temperature);
+            publish_message("sensorhub/temperature", buf);
 
             float lux = read_light();
-            printf("Light sensor (BH1750) lux: %.2f\n", lux);
+            char buf[16];
+            snprintf(buf, sizeof(buf), "%.2f", lux);
+            publish_message("sensorhub/lux", buf);
         }
 
-
-
+        mqtt_yield(100);
 
         ThisThread::sleep_for(500ms);
     }
