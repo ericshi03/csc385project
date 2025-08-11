@@ -29,12 +29,10 @@ int main() {
             publish_message("sensorhub/humidity", buf);
 
             float temperature = read_temperature(); 
-            char buf[16];
             snprintf(buf, sizeof(buf), "%.2f", temperature);
             publish_message("sensorhub/temperature", buf);
 
             float lux = read_light();
-            char buf[16];
             snprintf(buf, sizeof(buf), "%.2f", lux);
             publish_message("sensorhub/lux", buf);
         }

@@ -30,6 +30,7 @@
 #include <MQTTSNPacket.h>
 #include <MQTTSNClient.h>
 #include <MQTTmbed.h> // Countdown
+#include <MQTTClient/src/MQTTClient.h>
 
 /**
  * @brief Implementation of the Network class template parameter of MQTTClient.
