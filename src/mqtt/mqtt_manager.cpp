@@ -80,7 +80,7 @@ bool connect_mqtt() {
     return true;
 }
 
-void publish_message(char * topic, char * message) {
+void publish_message(const char * topic, const char * message) {
     MQTT::Message msg;
     msg.qos = MQTT::QOS0;
     msg.retained = false;

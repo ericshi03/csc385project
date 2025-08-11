@@ -5,7 +5,7 @@
 #include "../include/temp_sensor.h"
 #include "../include/mqtt_manager.h"
 
-
+I2C i2c(I2C_SDA, I2C_SCL);
 
 void setup() {
     light_init();

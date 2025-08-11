@@ -1,7 +1,7 @@
 #include "mbed.h"
+#include "light_sensor.h"
+#include "main.h"
 
-
-I2C i2c(I2C_SDA, I2C_SCL);
 
 const int BH1750_ADDR = 0x23 << 1; 
 

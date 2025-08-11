@@ -1,6 +1,6 @@
 #include "mbed.h"
-
-I2C i2c(I2C_SDA, I2C_SCL);
+#include "hum_sensor.h"
+#include "main.h"
 
 const int SHT31_ADDR = 0x44 << 1;
 
