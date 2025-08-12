@@ -40,6 +40,21 @@ static TransportInterface_t transportInterface = {
     &networkContext  
 };
 
+void mqtt_message_callback(MQTTContext_t * pContext,
+                           MQTTPacketInfo_t * pPacketInfo,
+                           MQTTDeserializedInfo_t * pDeserializedInfo)
+{
+    if (pPacketInfo->type == MQTT_PACKET_TYPE_PUBLISH)
+    {
+        const MQTTPublishInfo_t * publishInfo = pDeserializedInfo->pPublishInfo;
+
+        printf("Received message on topic: %.*s\n", 
+               (int)publishInfo->topicNameLength, publishInfo->pTopicName);
+        printf("Payload: %.*s\n",
+               (int)publishInfo->payloadLength, (char *)publishInfo->pPayload);
+    }
+}
+
 bool mqtt_init_client(WiFiInterface *wifi,
                        const char *ssid,
                        const char *password,
@@ -78,7 +93,7 @@ MQTTStatus_t status = MQTT_Init(
     &mqttContext,
     &transportInterface,
     getTimeMs,
-    NULL,      
+    mqtt_message_callback,      
     &mqttBuffer       
 );
 
@@ -126,6 +141,33 @@ bool mqtt_publish( const char *topic, const char *message )
 
     return true;
 }
+
+
+
+bool mqtt_subscribe(const char *topic)
+{
+    MQTTSubscribeInfo_t subscribeInfo;
+    subscribeInfo.qos = MQTTQoS0;
+    subscribeInfo.pTopicFilter = topic;
+    subscribeInfo.topicFilterLength = strlen(topic);
+
+    MQTTStatus_t status = MQTT_Subscribe(
+        &mqttContext,
+        &subscribeInfo,
+        1,
+        5000
+    );
+
+    if (status != MQTTSuccess)
+    {
+        printf("MQTT_Subscribe failed: %d\n", status);
+        return false;
+    }
+
+    printf("Subscribed to topic: %s\n", topic);
+    return true;
+}
+
 
 //--------------------------------------------------
 // Process incoming MQTT packets
