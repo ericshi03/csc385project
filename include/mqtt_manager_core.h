@@ -28,6 +28,8 @@ bool mqtt_init_client( WiFiInterface *wifi,
  */
 bool mqtt_publish( const char *topic, const char *message );
 
+bool mqtt_subscribe( const char *topic);
+
 
 void mqtt_yield( int timeoutMs );
 
